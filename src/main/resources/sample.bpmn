@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- origin at X=0.0 Y=0.0 -->
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:java="http://www.java.com/javaTypes" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" exporter="org.eclipse.bpmn2.modeler.core" exporterVersion="1.4.0.Final-v20170607-1718-B1" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+  <bpmn2:itemDefinition id="null" isCollection="false" structureRef="String"/>
+  <bpmn2:itemDefinition id="_input" isCollection="false" structureRef="String"/>
+  <bpmn2:itemDefinition id="_encounter" isCollection="false" structureRef="org.hl7.fhir.dstu3.model.Encounter"/>
+  <bpmn2:itemDefinition id="_adtHapiObj" isCollection="false" structureRef="ca.uhn.hl7v2.model.v251.message.ADT_AXX"/>
+  <bpmn2:itemDefinition id="_asdf" isCollection="false" structureRef="Integer"/>
+  <bpmn2:process id="com.sample.bpmn.hello" name="Hello World" isExecutable="true" processType="Private">
+    <bpmn2:extensionElements>
+      <tns:import name="ca.uhn.hl7v2.model.v251.datatype.XPN"/>
+      <tns:import name="org.hl7.fhir.dstu3.model.Encounter.EncounterStatusEnumFactory"/>
+      <tns:import name="java.lang.Thread.UncaughtExceptionHandler"/>
+      <tns:import name="org.hl7.fhir.dstu3.model.Reference"/>
+      <tns:import name="org.hl7.fhir.dstu3.model.Encounter.EncounterLocationComponent"/>
+      <tns:import name="ca.uhn.hl7v2.model.v251.message.ADT_AXX"/>
+      <tns:import name="ca.uhn.hl7v2.model.v251.datatype.CX"/>
+      <tns:import name="org.hl7.fhir.dstu3.model.Encounter"/>
+      <tns:import name="java.lang.Thread"/>
+      <tns:import name="org.hl7.fhir.dstu3.model.Encounter.EncounterLocationStatusEnumFactory"/>
+      <tns:import name="org.hl7.fhir.dstu3.model.Encounter.EncounterStatus"/>
+      <tns:import name="com.amazonaws.lambda.testdrh.AdtMessageValidation"/>
+      <tns:import name="java.lang.Object"/>
+      <tns:import name="java.lang.String"/>
+      <tns:import name="ca.uhn.hl7v2.model.v251.datatype.XAD"/>
+      <tns:import name="org.hl7.fhir.dstu3.model.Encounter.EncounterHospitalizationComponent"/>
+      <tns:import name="org.hl7.fhir.dstu3.model.Encounter.EncounterLocationStatus"/>
+      <tns:import name="org.hl7.fhir.dstu3.model.Encounter.EncounterParticipantComponent"/>
+      <tns:import name="org.hl7.fhir.dstu3.model.Encounter.EncounterStatusHistoryComponent"/>
+      <tns:import name="java.lang.Thread.State"/>
+    </bpmn2:extensionElements>
+    <bpmn2:property id="input" itemSubjectRef="null" name="input"/>
+    <bpmn2:property id="adtHapiObj" itemSubjectRef="_adtHapiObj" name="adtHapiObj"/>
+    <bpmn2:property id="asdf" itemSubjectRef="null" name="asdf"/>
+    <bpmn2:startEvent id="_1">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:outgoing>_1-_jbpm-unique-1</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:endEvent id="_3">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_jbpm-unique-1-_3</bpmn2:incoming>
+      <bpmn2:terminateEventDefinition id="TerminateEventDefinition_1"/>
+    </bpmn2:endEvent>
+    <bpmn2:scriptTask id="_jbpm-unique-1" name="Parse XML to HAPI" scriptFormat="http://www.java.com/java">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Parse XML to HAPI]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_1-_jbpm-unique-1</bpmn2:incoming>
+      <bpmn2:outgoing>_jbpm-unique-1-_3</bpmn2:outgoing>
+      <bpmn2:script>System.err.println(&quot;---------------&quot;);
+
+System.err.println(adtHapiObj.getClass().getName());
+
+//adtHapiObj = 
+AdtMessageValidation.parseXmlToHapi(input);
+
+//kcontext.setVariable(&quot;adtHapiObj&quot; , adtHapiObj);
+
+String s= &quot; ldp-standardize-adt : Parse XML to HAPI BLOCK&quot;;
+//logger.info(&quot; ldp-standardize-adt : Parse XML to HAPI BLOCK&quot;);
+System.out.println(&quot; ldp-standardize-adt : Parse XML to HAPI BLOCK&quot;);
+</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="_jbpm-unique-1-_3" sourceRef="_jbpm-unique-1" targetRef="_3"/>
+    <bpmn2:sequenceFlow id="_1-_jbpm-unique-1" sourceRef="_1" targetRef="_jbpm-unique-1"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="com.sample.bpmn.hello">
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="_1">
+        <dc:Bounds height="48.0" width="48.0" x="230.0" y="230.0"/>
+        <bpmndi:BPMNLabel labelStyle="#//@definitions/@diagrams.0/@labelStyle.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="_3">
+        <dc:Bounds height="48.0" width="48.0" x="410.0" y="230.0"/>
+        <bpmndi:BPMNLabel labelStyle="#//@definitions/@diagrams.0/@labelStyle.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_1" bpmnElement="_jbpm-unique-1">
+        <dc:Bounds height="48.0" width="80.0" x="306.0" y="230.0"/>
+        <bpmndi:BPMNLabel labelStyle="#//@definitions/@diagrams.0/@labelStyle.0">
+          <dc:Bounds height="11.0" width="78.0" x="307.0" y="248.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="_jbpm-unique-1-_3" sourceElement="BPMNShape_ScriptTask_1" targetElement="BPMNShape_EndEvent_1">
+        <di:waypoint xsi:type="dc:Point" x="386.0" y="254.0"/>
+        <di:waypoint xsi:type="dc:Point" x="398.0" y="254.0"/>
+        <di:waypoint xsi:type="dc:Point" x="410.0" y="254.0"/>
+        <bpmndi:BPMNLabel/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="_1-_jbpm-unique-1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_ScriptTask_1">
+        <di:waypoint xsi:type="dc:Point" x="278.0" y="254.0"/>
+        <di:waypoint xsi:type="dc:Point" x="292.0" y="254.0"/>
+        <di:waypoint xsi:type="dc:Point" x="306.0" y="254.0"/>
+        <bpmndi:BPMNLabel/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle>
+      <dc:Font name="arial" size="9.0"/>
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
